@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RepoItem } from './RepoItem.jsx';
+import { LanguageButton } from './LanguageButton.jsx';
 
 export const RepoList = () => {
     const [repos, setRepos] = useState([]);
@@ -9,9 +10,7 @@ export const RepoList = () => {
     useEffect(() => {
         const fetchRepos = async () => {
             const response = await fetch('http://localhost:3000/repos').then(res => res.json())
-            console.log(response);
             const repos = response;
-
             // Sort repositories in reverse chronological order by creation date
             repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             setRepos(repos);
@@ -34,14 +33,11 @@ export const RepoList = () => {
     };
 
     return (
-        <div>
-            <h1>GitHub Repositories</h1>
-            <div>
-                <button onClick={() => filterByLanguage('All')}>All</button>
+        <div className='p-6'>
+            <div className='flex gap-1 py-3'>
+                <LanguageButton language={'All'} onClick={() => filterByLanguage('All')}>All</LanguageButton>
                 {languages.map(language => (
-                    <button key={language} onClick={() => filterByLanguage(language)}>
-                        {language}
-                    </button>
+                    <LanguageButton key={language} language={language} onClick={() => filterByLanguage(language)} />
                 ))}
             </div>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
