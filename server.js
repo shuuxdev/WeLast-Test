@@ -1,11 +1,15 @@
+require('dotenv').config()
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3000;
+const ALLOW_OROGIN = process.env.ALLOW_ORIGIN || 'http://localhost:3000';
+const isProduction = process.env.IS_PRODUCTION;
+const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3001',  // Allow frontend to make requests from localhost:3001
+  origin: ALLOW_OROGIN,  // Allow frontend to make requests from localhost:3001
 };
 
 app.use(cors(corsOptions));
