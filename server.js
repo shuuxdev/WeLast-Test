@@ -1,8 +1,14 @@
 const express = require('express');
 const axios = require('axios');
-
+const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const corsOptions = {
+  origin: 'http://localhost:3001',  // Allow frontend to make requests from localhost:3001
+};
+
+app.use(cors(corsOptions));
 
 app.get('/repos', async (req, res) => {
   try {
