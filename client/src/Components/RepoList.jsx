@@ -15,9 +15,9 @@ export const RepoList = () => {
             repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             setRepos(repos);
             setFilteredRepos(repos);
-
             // Get unique languages
             const uniqueLanguages = [...new Set(repos.filter(repo => repo.language).map(repo => repo.language))];
+
             setLanguages(uniqueLanguages);
         };
 
