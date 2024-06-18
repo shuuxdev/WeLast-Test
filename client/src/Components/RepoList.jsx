@@ -17,7 +17,7 @@ export const RepoList = () => {
             setFilteredRepos(repos);
 
             // Get unique languages
-            const uniqueLanguages = [...new Set(repos.map(repo => repo.language))];
+            const uniqueLanguages = [...new Set(repos.filter(repo => repo.language).map(repo => repo.language))];
             setLanguages(uniqueLanguages);
         };
 
