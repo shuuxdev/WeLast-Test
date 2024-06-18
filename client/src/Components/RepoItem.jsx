@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { LoadingIcon } from "./LoadingIcon.jsx";
 export const RepoItem = ({ repo }) => {
     const [showDetails, setShowDetails] = useState(false);
     const [commitDetails, setCommitDetails] = useState(null);
+    const [showLoading, setShowLoading] = useState(false);
     const handleClick = async () => {
+        //Show loading icon whenever user click on the repository
+        if (!showDetails)
+            setShowLoading(true);
 
         try {
             const response = await fetch(`https://api.github.com/repos/freeCodeCamp/${repo.name}/commits`);
@@ -21,6 +26,9 @@ export const RepoItem = ({ repo }) => {
         } catch (error) {
             console.error('Error fetching commits:', error);
             setShowDetails(false);
+        } finally {
+            //Close loading icon after done with fetching data
+            setShowLoading(false);
         }
     };
     const renderRepoBody = () => {
@@ -53,7 +61,14 @@ export const RepoItem = ({ repo }) => {
 
     return (
         <li onClick={handleClick} className="p-4 min-h-[200px] bg-white relative border border-solid border-gray-300 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer">
-            {renderRepoBody()}
+            {showLoading ?
+                (
+                    <div className="w-full h-full flex justify-center items-center">
+                        <LoadingIcon />
+                    </div>
+                ) : renderRepoBody()
+            }
+
         </li>
     )
 };
