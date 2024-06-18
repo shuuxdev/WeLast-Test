@@ -4,6 +4,22 @@ const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.get('/repos', async (req, res) => {
+  try {
+    // Fetch data from GitHub repository
+    const response = await axios.get('https://api.github.com/users/freeCodeCamp/repos');
+    const repositories = response.data;
+
+    // Filter repositories where `fork` is false and `forks` is greater than 5
+    const filteredRepos = repositories.filter(repo => !repo.fork && repo.forks > 5);
+
+    // Return the filtered data as JSON
+    res.json(filteredRepos);
+  } catch (error) {
+    console.error('Error occured while fetching data:', error);
+    res.status(500).json({ error: 'Failed to fetch data from repository' });
+  }
+});
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
