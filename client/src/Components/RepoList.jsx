@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { RepoItem } from './RepoItem.jsx';
 
 export const RepoList = () => {
     const [repos, setRepos] = useState([]);
@@ -43,14 +44,9 @@ export const RepoList = () => {
                     </button>
                 ))}
             </div>
-            <ul>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {filteredRepos.map(repo => (
-                    <li key={repo.id}>
-                        <h2>{repo.name}</h2>
-                        <p>{repo.description}</p>
-                        <p>Language: {repo.language}</p>
-                        <p>Forks: {repo.forks}</p>
-                    </li>
+                    <RepoItem key={repo.id} repo={repo} />
                 ))}
             </ul>
         </div>
