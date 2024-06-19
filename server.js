@@ -5,12 +5,12 @@ const cors = require('cors')
 const { readJsonFile } = require('./Helpers/readJsonFile.js')
 
 const PORT = process.env.PORT || 3000;
-const ALLOW_OROGIN = process.env.ALLOW_ORIGIN || 'http://localhost:3000';
+const ALLOW_ORIGIN = process.env.ALLOW_ORIGIN || 'http://localhost:3000';
 const isProduction = process.env.IS_PRODUCTION;
 const app = express();
 
 const corsOptions = {
-  origin: ALLOW_OROGIN,  // Allow frontend to make requests from localhost:3001
+  origin: ALLOW_ORIGIN,  // Allow frontend to make requests from the port configured in .env file
 };
 
 app.use(cors(corsOptions));

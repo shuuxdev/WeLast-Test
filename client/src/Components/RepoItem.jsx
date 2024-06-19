@@ -10,9 +10,11 @@ export const RepoItem = ({ repo }) => {
             setShowLoading(true);
 
         try {
+            //Fetch commit details
             const response = await fetch(`https://api.github.com/repos/freeCodeCamp/${repo.name}/commits`);
             const commits = await response.json();
             if (commits.length > 0) {
+                //Display the most recent commits 
                 const mostRecentCommit = commits[0];
                 setShowDetails(true);
                 setCommitDetails({
@@ -21,6 +23,7 @@ export const RepoItem = ({ repo }) => {
                     message: mostRecentCommit.commit.message
                 });
             } else {
+                //Goes back to the reposotory
                 setShowDetails(false);
             }
         } catch (error) {
@@ -55,6 +58,7 @@ export const RepoItem = ({ repo }) => {
         )
     }
     const handleCloseDetails = (event) => {
+        //Stop the handleClick function from being called
         event.stopPropagation();
         setShowDetails(false);
     };
